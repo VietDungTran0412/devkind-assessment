@@ -1,0 +1,18 @@
+version: '3'
+services:
+  mysql:
+    image: mysql:8.2.0
+    container_name: barebone-db
+    ports:
+      - "3306:3306"
+    networks:
+      - barebone-system
+    volumes:
+      - "$PWD/db_data:/var/lib/mysql"
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=barebone
+      - MYSQL_USER=Admin@user
+      - MYSQL_PASSWORD=Admin@password
+networks:
+  barebone-system:
