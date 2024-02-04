@@ -4,8 +4,12 @@ import com.devkind.barebonesystem.entity.Activity;
 import com.devkind.barebonesystem.entity.User;
 import com.devkind.barebonesystem.enums.ActivityType;
 import com.devkind.barebonesystem.repository.ActivityRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Date;
 
 @Service
 public class ActivityService {
@@ -21,7 +25,11 @@ public class ActivityService {
         activity.setDescription(description);
         activity.setType(type);
         activity.setUser(user);
+        activity.setCreatedDate(new Date());
         return repository.save(activity);
     }
 
+    public Page<Activity> findByUser(User user, Pageable pageable) {
+        return repository.findAllByUser(user, pageable);
+    }
 }
