@@ -1,9 +1,12 @@
 package com.devkind.barebonesystem.service;
 
+import com.devkind.barebonesystem.dto.PageDto;
 import com.devkind.barebonesystem.dto.user.UpdateUserDto;
 import com.devkind.barebonesystem.dto.user.UserDto;
+import com.devkind.barebonesystem.entity.Activity;
 import com.devkind.barebonesystem.entity.User;
 import com.devkind.barebonesystem.enums.Role;
+import com.devkind.barebonesystem.mapper.ActivityMapper;
 import com.devkind.barebonesystem.mapper.UserMapper;
 import com.devkind.barebonesystem.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,8 +17,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.BadCredentialsException;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -115,5 +124,30 @@ public class UserServiceTest {
 
         // Call the method and assert
         Assertions.assertThrows(BadCredentialsException.class, () -> userService.update(request, dto, mapper));
+    }
+
+    @Test
+    public void testGetUserActivity_shouldReturnPageDto() {
+        // Create test data
+        Long userId = 1L;
+        User user = new User();
+        user.setId(userId);
+        Pageable pageable = PageRequest.of(0, 10);
+        List<Activity> activities = new ArrayList<>();
+        activities.add(new Activity(/* construct activity object */));
+        activities.add(new Activity(/* construct activity object */));
+        Page<Activity> activityPage = new PageImpl<>(activities);
+
+        // Mock repository and service behavior
+        Mockito.when(userRepository.findById(userId)).thenReturn(Optional.of(user));
+        Mockito.when(activityService.findByUser(user, pageable)).thenReturn(activityPage);
+
+
+        PageDto result = userService.getUserActivities(userId, pageable, ActivityMapper.INSTANCE::toActivityDto);
+
+        // Verify the result
+        Assertions.assertEquals(0, result.getPage()); // Verify page number
+        Assertions.assertEquals(1, result.getTotalPage()); // Verify total page count
+        Assertions.assertEquals(2, result.getTotalElements());
     }
 }
