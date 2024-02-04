@@ -11,6 +11,7 @@ import UpdatePassword from "./scene/UpdatePassword";
 import {useNotification} from "./context/NotificationProvider";
 import {jwtDecode} from "jwt-decode";
 import {useAuth} from "./context/AuthContext";
+import Activity from "./scene/Activity";
 
 // Scroll to top when new page to be appeared
 const ScrollToTop = () => {
@@ -52,6 +53,7 @@ function App() {
                   <Route path={'update-password'} element={<ProtectedRoute element={<UpdatePassword/>}/>}/>
                   <Route path={'register'} element={<Register/>}/>
                   <Route path={'log-in'} element={<LogIn/>}/>
+                  <Route path={'activity'} element={<Activity/>}/>
               </Routes>
           <Footer/>
       </BrowserRouter>
