@@ -1,5 +1,33 @@
 version: '3'
 services:
+  backend:
+    image: devkind-backend:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    ports:
+      - "8000:8000"
+    environment:
+      - MYSQL_HOST=mysql
+      - ENVIRONMENT=prod
+      - MYSQL_PORT=3306
+      - MYSQL_DATABASE=barebone
+      - MYSQL_USER=Admin@user
+      - MYSQL_PASSWORD=Admin@password
+    networks:
+      - barebone-system
+    depends_on:
+      mysql:
+        condition: service_started
+    restart: always
+  ui:
+    image: devkind-ui:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.ui
+    ports:
+      - "80:80"
+
   mysql:
     image: mysql:8.2.0
     container_name: barebone-db
