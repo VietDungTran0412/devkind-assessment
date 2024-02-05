@@ -1,5 +1,7 @@
 package com.devkind.barebonesystem.dto.auth;
 
+import com.devkind.barebonesystem.validation.Age;
+import com.devkind.barebonesystem.validation.DateFormat;
 import com.devkind.barebonesystem.validation.Regex;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
@@ -12,6 +14,8 @@ public class UserRegisterDto {
     @NotBlank
     @Regex(pattern = "^[a-zA-Z]+(?:[-\\s][a-zA-Z]+)*$", message = "Lastname only contains alphebetical characters and hyphens")
     private String lastname;
+
+    @Age
     @NotBlank
     private String dateOfBirth;
     @NotBlank

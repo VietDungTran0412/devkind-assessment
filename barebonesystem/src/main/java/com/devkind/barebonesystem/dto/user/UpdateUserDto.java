@@ -1,5 +1,6 @@
 package com.devkind.barebonesystem.dto.user;
 
+import com.devkind.barebonesystem.validation.Age;
 import com.devkind.barebonesystem.validation.DateFormat;
 import com.devkind.barebonesystem.validation.Regex;
 import jakarta.validation.constraints.NotBlank;
@@ -17,7 +18,7 @@ public class UpdateUserDto {
     @Regex(pattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", message = "Email format does not match!")
     private String email;
     @NotBlank
-    @DateFormat
+    @Age(minAge = 18)
     private String dateOfBirth;
 //    Just for checking user
     private String username;

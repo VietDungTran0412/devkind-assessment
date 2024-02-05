@@ -26,7 +26,7 @@ public class ApiExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseRestDto handleUsernameNotFound(MethodArgumentNotValidException ex) {
-        return ResponseRestDto.builder().message("Bad request: " + ex.getMessage()).build();
+        return ResponseRestDto.builder().message(ex.getBody().getTitle() + ": " + ex.getBody().getDetail() ).build();
     }
 
     @ExceptionHandler(ResourceExistedException.class)
