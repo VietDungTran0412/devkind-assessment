@@ -27,8 +27,11 @@ const useUpdateUser = () => {
             },
             body: JSON.stringify(values)
         }).then(res => {
-            if(res.status === 401 || res.status === 400) {
+            if(res.status === 401) {
                 setError("Your session has been expired!")
+            }
+            if(res.status === 400) {
+                setError("Your format does not match!")
             }
             return res.json();
         })

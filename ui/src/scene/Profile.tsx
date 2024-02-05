@@ -21,9 +21,9 @@ import {useNavigate} from "react-router-dom";
 
 // Validate Form Schema using Yup
 const validationSchema = Yup.object({
-    firstname: Yup.string().required('First Name is required'),
-    lastname: Yup.string().required('Last Name is required'),
-    email: Yup.string().email('Invalid email address').required('Email is required'),
+    firstname: Yup.string().required('First Name is required').matches(/^[a-zA-Z]+(?:[-\s][a-zA-Z]+)*$/, 'Firstname requires alphabetical characters and hyphens!'),
+    lastname: Yup.string().required('Last Name is required').matches(/^[a-zA-Z]+(?:[-\s][a-zA-Z]+)*$/, 'Lastname requires alphabetical characters and hyphens!'),
+    email: Yup.string().email('Invalid email address').required('Email is required').matches(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, 'Invalid email address'),
     dateOfBirth: Yup.date().required('Date of Birth is required').test('is-adult', 'You must be 18 or older', function (value) {
         const dob = new Date(value);
         const today = new Date();

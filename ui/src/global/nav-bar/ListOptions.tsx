@@ -11,12 +11,13 @@ import {
 } from "@mui/material"
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import {  HowToReg, Login } from "@mui/icons-material";
-import ListIcon from '@mui/icons-material/List';
+import ContentPasteSearchIcon from '@mui/icons-material/ContentPasteSearch';
 import Logout from "@mui/icons-material/Logout";
 import React from "react";
 import {useAuth} from "../../context/AuthContext";
 import {useNotification} from "../../context/NotificationProvider";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import HomeIcon from '@mui/icons-material/Home';
 
 interface ListOptionsProps extends BoxProps {
     setOpen: React.Dispatch<React.SetStateAction<boolean>>
@@ -42,6 +43,14 @@ const ListOptions: React.FunctionComponent<ListOptionsProps> = ({setOpen, ...res
             <Divider />
             <List>
                 <ListItem disablePadding>
+                    <ListItemButton href="/">
+                        <ListItemIcon>
+                            <HomeIcon />
+                        </ListItemIcon>
+                        <ListItemText primary={'Home'} />
+                    </ListItemButton>
+                </ListItem>
+                <ListItem disablePadding>
                     <ListItemButton disabled={!isAuthenticated} href="/profile">
                         <ListItemIcon>
                             <AccountCircleIcon />
@@ -52,7 +61,7 @@ const ListOptions: React.FunctionComponent<ListOptionsProps> = ({setOpen, ...res
                 <ListItem disablePadding>
                     <ListItemButton disabled={!isAuthenticated} href="/activity">
                         <ListItemIcon>
-                            <ListIcon />
+                            <ContentPasteSearchIcon />
                         </ListItemIcon>
                         <ListItemText primary={'Activity'} />
                     </ListItemButton>

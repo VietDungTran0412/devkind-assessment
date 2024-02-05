@@ -54,8 +54,8 @@ const Activity:React.FC = () => {
                                     key={i}
                                     sx={{ '&:last-child td, &:last-child th': { border: 0 }, minHeight: MIN_HEIGHT_TABLE_ROW }}
                                 >
-                                    <TableCell align="left">{row.createdDate}</TableCell>
-                                    <TableCell align="left" sx={{minWidth: 450}}>{row.description}</TableCell>
+                                    <TableCell sx={{width: 250}} align="left">{row.createdDate}</TableCell>
+                                    <TableCell align="left" sx={{width: 800}}>{row.description}</TableCell>
                                     <TableCell align="left">{row.type}</TableCell>
                                 </TableRow>
                             ))}

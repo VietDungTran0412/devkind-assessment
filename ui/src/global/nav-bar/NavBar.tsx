@@ -3,6 +3,7 @@ import { useState } from "react";
 import ListOptions from "./ListOptions";
 import {useTheme} from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
+import Logo from "../../component/Logo";
 
 const { Toolbar, Box, IconButton, AppBar, Drawer, useMediaQuery } = require("@mui/material")
 
@@ -19,7 +20,7 @@ const NavBar = () => {
         >
             <Toolbar>
                 <Box display={{ xs: 'flex' }} width='100%' flexDirection={'row'} justifyContent={'space-between'} alignItems={'center'} marginX={'auto'}>
-                    {/*<Logo sx={{ml: matches ? 12 : 0}}/>*/}
+                    <Logo sx={{ml: matches ? 4 : 0}} title={"Devkind Assessment"}/>
                     <Box ml={'auto'} display={'block'}>
                         {/* Menu Icon for opening the drawer */}
                         <IconButton color="inherit" size="large" onClick={() => setDrawerOpen(true)} >

@@ -7,8 +7,10 @@ import lombok.Data;
 @Data
 public class UserRegisterDto {
     @NotBlank
+    @Regex(pattern = "^[a-zA-Z]+(?:[-\\s][a-zA-Z]+)*$", message = "Firstname only contains alphebetical characters and hyphens")
     private String firstname;
     @NotBlank
+    @Regex(pattern = "^[a-zA-Z]+(?:[-\\s][a-zA-Z]+)*$", message = "Lastname only contains alphebetical characters and hyphens")
     private String lastname;
     @NotBlank
     private String dateOfBirth;
