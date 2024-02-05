@@ -53,7 +53,7 @@ function App() {
                   <Route path={'update-password'} element={<ProtectedRoute element={<UpdatePassword/>}/>}/>
                   <Route path={'register'} element={<Register/>}/>
                   <Route path={'log-in'} element={<LogIn/>}/>
-                  <Route path={'activity'} element={<Activity/>}/>
+                  <Route path={'activity'} element={<ProtectedRoute element={<Activity/>}/>} />
               </Routes>
           <Footer/>
       </BrowserRouter>

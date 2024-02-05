@@ -52,7 +52,8 @@ export const theme = createTheme({
             fontSize: 20
         },
         h4: {
-            fontSize: 14
+            fontSize: 14,
+            fontWeight: 'bold'
         },
     }
 })

@@ -30,6 +30,6 @@ public class ActivityService {
     }
 
     public Page<Activity> findByUser(User user, Pageable pageable) {
-        return repository.findAllByUserOrderByCreatedDateCreatedDateDesc(user, pageable);
+        return repository.findAllByUserOrderByCreatedDateDesc(user, pageable);
     }
 }

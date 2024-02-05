@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ActivityRepository  extends JpaRepository<Activity, Long> {
-    Page<Activity> findAllByUserOrderByCreatedDateCreatedDateDesc(User user, Pageable pageable);
+    Page<Activity> findAllByUserOrderByCreatedDateDesc(User user, Pageable pageable);
 }

@@ -6,50 +6,55 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import PaginationItem from '@mui/material/PaginationItem';
-import {Box, Divider, Pagination, Stack, Typography} from "@mui/material";
+import {Box, Divider, Pagination, Stack, Typography, useMediaQuery, useTheme} from "@mui/material";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import useGetActivity from "../hooks/useGetActivity";
+import {useEffect} from "react";
+import {useNotification} from "../context/NotificationProvider";
 
-function createData(
-    timestamp: string,
-    description: string,
-    type: string
-) {
-    return { timestamp, description, type };
+const MIN_HEIGHT_TABLE_ROW = 50;
+
+const initialPage = {
+    page: 0,
+    size: 10
 }
 
-const rows = [
-    createData("13-03-2003", "Test Activity", "AUTH"),
-    createData("13-03-2003", "Test Activity", "AUTH"),
-    createData("13-03-2003", "Test Activity", "AUTH"),
-    createData("13-03-2003", "Test Activity", "AUTH"),
-    createData("13-03-2003", "Test Activity", "AUTH"),
-];
-
+/* Activity Scene for the application */
 const Activity:React.FC = () => {
+    const { data, loading, error, page, setPage } = useGetActivity(initialPage);
+    const theme = useTheme();
+    const matches = useMediaQuery(theme.breakpoints.down('lg'))
+    const { showNotification } = useNotification();
+    useEffect(() => {
+        if(error) {
+            showNotification("Internal server error!", "error");
+        }
+    }, [error]);
     return (
-        <Box sx={{mt: 24, display: 'flex', justitfyContent: 'center', flexDirection: 'column', alignItems: 'center', width: '60%', mx: 'auto'}}>
+        <Box sx={{mt: 24, display: 'flex', justitfyContent: 'center', flexDirection: 'column', alignItems: 'center', width: matches ? '90%' : '60%', mx: 'auto'}}>
             <Typography sx={{mb: 4}} variant={'h2'}>Your Activity</Typography>
             <Box sx={{ width: '100%' }}>
                 <Divider/>
             </Box>
-            <Paper sx={{width: '100%', mt: 4, mb: 4}}>
-                <TableContainer component={Paper}>
+            <Paper sx={{width: '100%', mt: 4, mb: 4, minHeight: MIN_HEIGHT_TABLE_ROW * (initialPage.size + 1) + 1.25}}>
+                <TableContainer component={Paper} sx={{height: '100%'}}>
                     <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                        <TableHead>
-                            <TableRow>
-                                <TableCell align="left">Timestamp</TableCell>
-                                <TableCell align="left">Description</TableCell>
-                                <TableCell align="left">Type</TableCell>
+                        <TableHead >
+                            <TableRow sx={{minHeight: MIN_HEIGHT_TABLE_ROW }}>
+                                <TableCell align="left"><Typography variant={'h4'}>Timestamp</Typography></TableCell>
+                                <TableCell align="left"><Typography variant={'h4'}>Description</Typography></TableCell>
+                                <TableCell align="left"><Typography variant={'h4'}>Type</Typography></TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {rows.map((row, i) => (
+                            {data?.content?.map((row: any, i: number) => (
                                 <TableRow
+                                    hover
                                     key={i}
-                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                    sx={{ '&:last-child td, &:last-child th': { border: 0 }, minHeight: MIN_HEIGHT_TABLE_ROW }}
                                 >
-                                    <TableCell align="left">{row.timestamp}</TableCell>
+                                    <TableCell align="left">{row.createdDate}</TableCell>
                                     <TableCell align="left" sx={{minWidth: 450}}>{row.description}</TableCell>
                                     <TableCell align="left">{row.type}</TableCell>
                                 </TableRow>
@@ -58,10 +63,12 @@ const Activity:React.FC = () => {
                     </Table>
                 </TableContainer>
             </Paper>
-            <Stack spacing={2}>
+            <Stack spacing={2} position={'sticky'}>
                 <Pagination
-                    count={10}
-
+                    count={data?.totalPage}
+                    page={page+1}
+                    disabled={loading}
+                    onChange={(e, currentPage) => setPage(currentPage - 1)}
                     renderItem={(item) => (
                         <PaginationItem
                             slots={{ previous: ArrowBackIcon, next: ArrowForwardIcon }}
