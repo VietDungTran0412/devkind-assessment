@@ -34,7 +34,7 @@ public class UserController {
         UserDto user = userService.update(request, updateUserDto, UserMapper.INSTANCE::toUserDto);
         return ResponseRestDto.builder().message("Successfully updated!").data(user).build();
     }
-    @GetMapping("/activity/{id}")
+    @GetMapping("/{id}/activity")
     // Check if user use the right jwt to fetch the activity of itself
     @PreAuthorize("@jwtService.extractUsername(#request.getHeader('Authorization').substring(7)) == authentication.principal.username and #id == authentication.principal.id")
     @ResponseStatus(HttpStatus.OK)

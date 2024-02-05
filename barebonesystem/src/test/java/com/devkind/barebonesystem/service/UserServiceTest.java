@@ -111,7 +111,7 @@ public class UserServiceTest {
         Assertions.assertDoesNotThrow(() -> userService.update(request, dto, mapper));
     }
     @Test
-    public void testUpdate_InvalidUser() {
+    public void testUpdateUser_InvalidUser() {
         // Mocking HttpServletRequest
         HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
         Mockito.when(request.getHeader("Authorization")).thenReturn("Bearer token");

@@ -22,7 +22,7 @@ const useGetActivity = (props: PageProps) => {
             setData(null)
             setLoading(true)
             setError(null);
-            await fetch(`${API_URL}/user/activity/${getUser()?.id}?page=${page}&size=${size}`, {
+            await fetch(`${API_URL}/user/${getUser()?.id}/activity?page=${page}&size=${size}`, {
                 method: "GET",
                 headers: {
                     'Content-Type': 'application/json',
