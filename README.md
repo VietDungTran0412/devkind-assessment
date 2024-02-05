@@ -23,6 +23,8 @@ or
 docker-compose up -d
 ```
 
+The ui will be accessible via `http://localhost:80` while the backend will be accessible via `http://localhost:8000/api/v1`.
+Note that it is necessary to make port 80, 3306 and 8000 available to use!
 
 ## Features
 ### 1. Authentication
